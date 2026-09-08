@@ -1,0 +1,6 @@
+{
+  "order": ["base/skeleton.slvs", "base/bracket.slvs",
+            "variant/skeleton.slvs", "variant/bracket.slvs"],
+  "view": "front",
+  "exports": ["svg", "dxf", "png"]
+}

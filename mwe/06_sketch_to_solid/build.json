@@ -1,0 +1,6 @@
+{
+  "order": ["plate.slvs", "plate.depth20.slvs"],
+  "view": "front",
+  "exports": ["svg", "dxf", "png"],
+  "solid": ["plate.slvs", "plate.depth20.slvs"]
+}

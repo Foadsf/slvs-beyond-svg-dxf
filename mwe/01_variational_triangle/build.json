@@ -1,0 +1,5 @@
+{
+  "order": ["triangle.slvs", "triangle.hyp200.slvs"],
+  "view": "front",
+  "exports": ["svg", "dxf", "png"]
+}

@@ -1,0 +1,5 @@
+{
+  "order": ["bracket.slvs", "bracket.top70.slvs"],
+  "view": "front",
+  "exports": ["svg", "dxf", "png"]
+}

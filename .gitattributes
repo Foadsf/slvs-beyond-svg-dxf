@@ -1,0 +1,15 @@
+# Default: detect text, store and check out with LF everywhere.
+*       text=auto eol=lf
+
+# .slvs is text after a 3-byte magic prefix (B1 B2 B3).  Never convert line
+# endings, but DO diff it as text: the whole point of this repository is that
+# a parametric model is a readable, diffable file.
+*.slvs  -text diff
+*.svg   text eol=lf
+*.md    text eol=lf
+*.py    text eol=lf
+*.json  text eol=lf
+*.png   binary
+*.stl   binary
+*.step  -text
+*.dxf   -text
