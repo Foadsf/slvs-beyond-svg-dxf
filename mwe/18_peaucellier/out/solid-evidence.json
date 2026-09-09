@@ -1,0 +1,48 @@
+{
+  "results": [
+    {
+      "file": "assembly",
+      "step_valid": true,
+      "step_solids": 7,
+      "expected_volume_mm3": 10049.778714378213,
+      "step_volume_mm3": 10049.78022021529,
+      "bore_boundary_checks": 28,
+      "stl_layers": 7,
+      "stl_watertight": true,
+      "stl_euler_per_layer": [
+        -2,
+        -2,
+        -2,
+        -2,
+        -2,
+        -2,
+        -2
+      ],
+      "stl_volume_mm3": 10046.231590907484
+    },
+    {
+      "file": "assembly.height25",
+      "step_valid": true,
+      "step_solids": 7,
+      "expected_volume_mm3": 10049.778714378213,
+      "step_volume_mm3": 10049.774696585951,
+      "bore_boundary_checks": 28,
+      "stl_layers": 7,
+      "stl_watertight": true,
+      "stl_euler_per_layer": [
+        -2,
+        -2,
+        -2,
+        -2,
+        -2,
+        -2,
+        -2
+      ],
+      "stl_volume_mm3": 10046.231225113057
+    }
+  ],
+  "negative_controls": [
+    "solid web rejected as a bore",
+    "missing facet rejected as watertight"
+  ]
+}

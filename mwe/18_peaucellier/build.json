@@ -1,0 +1,13 @@
+{
+  "order": [
+    "linkage.slvs",
+    "linkage.height25.slvs"
+  ],
+  "view": "front",
+  "exports": [
+    "svg",
+    "dxf",
+    "png"
+  ]
+}
+

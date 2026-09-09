@@ -1,0 +1,11 @@
+{
+  "javascript_errors": [],
+  "tested_poses": [
+    0,
+    30,
+    40,
+    60
+  ],
+  "playback_verified": true,
+  "mobile_overflow": false
+}

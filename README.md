@@ -1,6 +1,6 @@
 # slvs-beyond-svg-dxf
 
-Six minimal working examples of things a SolveSpace `.slvs` file can say
+Minimal working examples of things a SolveSpace `.slvs` file can say
 that an SVG or a DXF cannot: relationships instead of coordinates.
 
 SVG and DXF are *evaluated* drawings.  They store where every vertex ended
@@ -86,6 +86,28 @@ Unicode comment text verbatim, measured.
 The recurring reason for "not representable" is the same: a solver of
 equalities has no inequalities, so "must lie within" can be *drawn* and
 *measured* but never *enforced*.
+
+## Part III: From constraints to motion
+
+[18 Peaucellier straight-line linkage](mwe/18_peaucellier/) turns a circular
+input into straight output using seven moving links, with **no slider or
+straightness constraint on the output**. Change one driving dimension from
+10 to 25 mm; then sweep 61 natively regenerated poses over a 103.450 mm
+output stroke. A deliberately wrong crank makes the straightness check fail.
+
+[![Interactive motion preview](mwe/18_peaucellier/out/preview.png)](mwe/18_peaucellier/out/motion.html)
+
+The optional solid version adds seven extruded capsule links and fourteen
+bores constrained to the same skeleton. Both poses reopen as seven valid
+STEP solids; all seven STL layers are watertight. This is a mechanism study
+with exploded link layers, not a manufacturing-ready pivot assembly.
+
+![Two natively solved solid poses](mwe/18_peaucellier/out/solids.png)
+
+Open the [motion page](mwe/18_peaucellier/out/motion.html) locally to play or
+scrub the measured poses. GitHub displays its source; download the repository
+and open the file in a browser. See the [example README](mwe/18_peaucellier/README.md)
+for the proof, reproduction commands and numerical evidence.
 
 ## Capability matrix
 

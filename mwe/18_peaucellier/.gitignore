@@ -1,0 +1,3 @@
+# Native regenerated geometry follows the root ignore rules.
+# CLI logs contain local absolute paths; keep those local.
+out/*.log

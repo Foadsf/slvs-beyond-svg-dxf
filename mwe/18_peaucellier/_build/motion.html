@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Peaucellier | A straight line made of circles</title>
+<style>
+:root{color-scheme:dark;font:16px system-ui,sans-serif;background:#101820;color:#e9f0f2}*{box-sizing:border-box}body{margin:0 auto;max-width:1500px;padding:38px 48px}header{display:flex;align-items:start;justify-content:space-between;gap:24px}.eyebrow{color:#76cec5;font-size:12px;letter-spacing:.19em;text-transform:uppercase}h1{font-weight:500;font-size:clamp(26px,3.1vw,46px);letter-spacing:-.035em;margin:12px 0}header p{color:#a4b5c0;max-width:710px;line-height:1.6;margin:0}.badge{border:1px solid #3b575b;border-radius:30px;padding:10px 16px;white-space:nowrap;font-size:12px;color:#87dfba;margin-top:8px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:26px;margin-top:30px}.stage{border:1px solid #30414d;background:#13202a;border-radius:18px;overflow:hidden;position:relative}svg{display:block;width:100%;height:560px}.stage-note{position:absolute;bottom:18px;left:22px;color:#8aa0b1;font-size:12px}aside{display:flex;flex-direction:column;gap:16px}.card{padding:22px;border:1px solid #30414d;border-radius:16px;background:#15232d}.label{font-size:12px;color:#91a7b7;text-transform:uppercase;letter-spacing:.1em}.number{font-size:32px;margin:9px 0;color:#efba74;font-variant-numeric:tabular-nums}.card p{font-size:13px;line-height:1.65;color:#a9bcc9;margin-bottom:0}.equation{font:18px ui-monospace,monospace;margin:14px 0;color:#e4edf1}.controls{display:flex;align-items:center;gap:16px;padding:20px 0}button{background:#72d0c0;color:#10251e;border:0;border-radius:8px;padding:11px 24px;font:600 14px system-ui;cursor:pointer;min-width:96px}input{flex:1;accent-color:#72d0c0}output{min-width:75px;text-align:right;color:#d8e8ee;font-variant-numeric:tabular-nums}footer{border-top:1px solid #30414d;padding-top:17px;display:flex;justify-content:space-between;gap:20px;font-size:12px;line-height:1.6;color:#899fab}a{color:#8ed9cf}#caption{color:#9bafbd;font-size:13px}.legend{display:flex;gap:25px;flex-wrap:wrap;margin:16px 0;font-size:13px;color:#a9bdc8}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px} @media(max-width:860px){body{padding:24px}.layout{grid-template-columns:1fr}aside{display:grid;grid-template-columns:1fr 1fr}svg{height:490px}.badge{display:none}footer{display:block}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+@media(max-width:600px){main{min-width:0}aside{display:flex}.controls{display:grid;grid-template-columns:96px 1fr 65px;gap:12px}.controls label{grid-column:2/4}.controls input{grid-column:1/3;width:100%;min-width:0}.stage-note{right:16px;font-size:10px}.number{font-size:29px}svg{height:430px}}
+</style>
+<header><div><div class="eyebrow">18 / Native SolveSpace mechanism study</div><h1>A straight line made of circles.</h1><p>Seven moving links. Two fixed pivots. No sliding joint.<br>The Peaucellier cell turns a circular arc into an exact straight path.</p></div><div class="badge">61 poses / natively regenerated</div></header>
+<div class="layout"><main><div class="stage"><svg id="drawing" viewBox="0 0 850 560" role="img" aria-label="Animated Peaucellier linkage, circular input P and straight output Q"></svg><div class="stage-note">Joint positions read from regenerated .slvs files. Link widths are illustrative.</div></div><div class="controls"><button id="play">Pause</button><label for="pose">Input height</label><input id="pose" type="range" min="0" max="60" value="40" aria-label="Crank pin height"><output id="height"></output></div><div id="caption"></div><div class="legend"><span><i class="dot" style="background:#eeb776"></i>Equal 100 mm arms</span><span><i class="dot" style="background:#80c7da"></i>60 mm rhombus</span><span><i class="dot" style="background:#83d9b0"></i>35 mm crank</span></div></main>
+<aside><div class="card"><div class="label">Output x / all poses</div><div class="number">91.428571<span style="font-size:14px"> mm</span></div><p>The output has no vertical-line constraint. Straightness emerges from bar lengths.</p></div><div class="card"><div class="label">The geometric invariant</div><div class="equation">OP × OQ = L² − s²<br><br>= 6400 mm²</div><p>The crank circle passes through O.<br>Its inverse is a straight line.</p></div><div class="card"><div class="label">Measured / not assumed</div><p id="metrics"></p><p id="negative"></p></div></aside></div>
+<footer><div>Editable CAD: <a href="../linkage.slvs">native source</a> · <a href="../linkage.height25.slvs">one-line variant</a> · <a href="assembly.slvs">3D assembly</a> · <a href="assembly.step">STEP</a> · <a href="solids.png">3D comparison</a><br>Verification: <a href="measurements.csv">122 measured poses</a> · <a href="evidence.json">motion evidence</a> · <a href="solid-evidence.json">solid evidence</a><br>Ideal kinematics; pin clearance, elasticity and physical interference are not modelled.</div><div><a href="https://mathworld.wolfram.com/PeaucellierInversor.html">Peaucellier inversor / mathematical reference</a></div></footer>
+<script>
+const frames=__FRAMES__, summary=__SUMMARY__;
+const svg=document.getElementById('drawing'), slider=document.getElementById('pose');
+const NS='http://www.w3.org/2000/svg';
+// Uniform scale is essential: different x/y scales would misrepresent the geometry.
+const scale=2.65, project=([x,y])=>[230+x*scale,280-y*scale];
+function node(tag,attrs,parent=svg){const e=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(attrs))e.setAttribute(k,v);parent.append(e);return e}
+function line(a,b,attrs={}){const[x1,y1]=project(a),[x2,y2]=project(b);return node('line',{x1,y1,x2,y2,...attrs})}
+function circle(p,r,attrs={}){const[cx,cy]=project(p);return node('circle',{cx,cy,r,...attrs})}
+function text(p,s,attrs={}){const[x,y]=project(p);const t=node('text',{x,y,fill:'#d7e7ed','font-size':14,...attrs});t.textContent=s;return t}
+function draw(index){const frame=frames[index],p=frame.points;svg.replaceChildren();
+for(let x=-60;x<=200;x+=20)line([x,-100],[x,100],{stroke:'#24343e','stroke-width':.65});
+for(let y=-100;y<=100;y+=20)line([-60,y],[200,y],{stroke:'#24343e','stroke-width':.65});
+circle(p.C,35*scale,{fill:'none',stroke:'#547768','stroke-width':1.5,'stroke-dasharray':'4 7'});
+line([6400/70,-69],[6400/70,83],{stroke:'#698b81','stroke-width':1,'stroke-dasharray':'4 6'});
+const trace=frames.map(f=>project(f.points.Q).join(',')).join(' ');
+node('polyline',{points:trace,fill:'none',stroke:'#98e8ba','stroke-width':4,opacity:.55});
+line(p.O,p.C,{stroke:'#516875','stroke-width':13,'stroke-linecap':'round'});
+const rods=[['O','A','#eeb776'],['O','B','#eeb776'],['A','P','#80c7da'],['P','B','#80c7da'],['B','Q','#80c7da'],['Q','A','#80c7da'],['C','P','#83d9b0']];
+for(const[a,b,color]of rods){line(p[a],p[b],{stroke:'#0b1219','stroke-width':13,'stroke-linecap':'round'});line(p[a],p[b],{stroke:color,'stroke-width':8,'stroke-linecap':'round'});line(p[a],p[b],{stroke:'#ffffff','stroke-width':1,opacity:.25});}
+for(const[name,v]of Object.entries(p)){if(name==='O'||name==='C')circle(v,14,{fill:'#172630',stroke:'#637987','stroke-width':1.5});circle(v,name==='Q'?9:5,{fill:name==='Q'?'#abf4ca':'#172630',stroke:name==='Q'?'#abf4ca':'#edf1eb','stroke-width':2});}
+text([p.O[0]-10,p.O[1]-13],'O  fixed',{'text-anchor':'end',fill:'#9badbc'});
+text([p.C[0]-3,p.C[1]-17],'C',{'text-anchor':'end',fill:'#9badbc'});
+text([p.A[0]-8,p.A[1]+7],'A',{'text-anchor':'end'});text([p.B[0]-8,p.B[1]-10],'B',{'text-anchor':'end'});
+text([p.P[0]-7,p.P[1]+10],'P',{'text-anchor':'end',fill:'#83d9b0'});
+text([p.Q[0]+10,p.Q[1]+2],'Q  output',{fill:'#abf4ca'});
+text([125,87],'STRAIGHT OUTPUT',{fill:'#88b3a0','font-size':11,'letter-spacing':1.3,'text-anchor':'middle'});
+line([120,81],[94,60],{stroke:'#638b7b','stroke-width':1});
+document.getElementById('height').textContent=frame.height.toFixed(0)+' mm';
+document.getElementById('caption').textContent=`Pose ${index+1} / 61  ·  P = (${p.P[0].toFixed(3)}, ${p.P[1].toFixed(3)}) mm  ·  Q = (${p.Q[0].toFixed(6)}, ${p.Q[1].toFixed(3)}) mm`;
+slider.value=index;svg.dataset.pose=index;
+}
+document.getElementById('metrics').textContent=`${summary.stroke_mm.toFixed(3)} mm output stroke. Maximum horizontal error ${summary.max_straight_error_mm.toExponential(2)} mm.`;
+document.getElementById('negative').textContent=`Control: a 36 mm crank produces ${summary.negative_control.lateral_drift_mm.toFixed(3)} mm lateral drift. All 61 control poses fail straightness.`;
+let playing=!matchMedia('(prefers-reduced-motion: reduce)').matches,index=40,direction=1,last=0;
+const play=document.getElementById('play');function label(){play.textContent=playing?'Pause':'Play'}label();
+play.onclick=()=>{playing=!playing;label()};slider.oninput=()=>{playing=false;label();index=+slider.value;draw(index)};
+function tick(now){if(playing&&now-last>80){if(index===60)direction=-1;if(index===0)direction=1;index+=direction;draw(index);last=now}requestAnimationFrame(tick)}
+draw(index);requestAnimationFrame(tick);
+</script></html>

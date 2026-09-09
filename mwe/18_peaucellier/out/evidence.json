@@ -1,0 +1,13 @@
+{
+  "cli_version": "SolveSpace version 3.2~8f4b12ca",
+  "poses": 61,
+  "source_sha256": "5b1921491625de02e4ca7e7e90c0e7f01b3ea0cf511bf6588737bbbf41fa770c",
+  "max_straight_error_mm": 5.677520675817505e-10,
+  "stroke_mm": 103.44986588772923,
+  "negative_control": {
+    "crank_mm": 36,
+    "rejected_poses": 61,
+    "max_error_mm": 1.6585226727919036,
+    "lateral_drift_mm": 0.370796314643016
+  }
+}

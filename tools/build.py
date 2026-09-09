@@ -81,14 +81,22 @@ def build_one(cli: Path, mwe: Path, verbose: bool) -> list[Path]:
     spec = json.loads((mwe / "build.json").read_text(encoding="utf-8"))
     out = mwe / "out"
     out.mkdir(exist_ok=True)
-    for old in out.rglob("*"):
-        if old.is_file() and old.suffix in GENERATED_SUFFIXES:
-            old.unlink()
 
     produced: list[Path] = []
     view = spec.get("view", "front")
     exports = spec.get("exports", ["svg", "dxf", "png"])
     solids = set(spec.get("solid", []))
+
+    # Remove only what this script itself regenerates: <stem>.<ext> and
+    # <stem>.iso.<ext> next to each file in "order".  An MWE may keep other
+    # generated artefacts in out/ (its own sweeps, previews, evidence); those
+    # are not ours to delete.
+    for name in spec["order"]:
+        dst = out / name
+        for ext in GENERATED_SUFFIXES:
+            for victim in (dst.with_suffix(ext), dst.parent / (dst.stem + ".iso" + ext)):
+                if victim.exists():
+                    victim.unlink()
 
     for name in spec["order"]:
         src = mwe / name                 # may live in a sub-folder, e.g. base/skeleton.slvs
