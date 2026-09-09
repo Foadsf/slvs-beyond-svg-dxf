@@ -1,0 +1,5 @@
+{
+  "order": ["runout.slvs", "runout.e12.slvs", "symmetry.slvs", "symmetry.off08.slvs"],
+  "view": "front",
+  "exports": ["svg", "dxf", "png"]
+}

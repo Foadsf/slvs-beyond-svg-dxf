@@ -101,6 +101,26 @@ normals `3000`–`3012`; `4000` DISTANCE; `10000` WORKPLANE; `11000` LINE_SEGMEN
 `121` PARALLEL, `124` CUBIC_LINE_TANGENT, `125` CURVE_CURVE_TANGENT, `200` WHERE_DRAGGED,
 `1000` COMMENT.
 
+Constraint behaviours worth knowing (all `src/constrainteq.cpp`):
+
+- `200` WHERE_DRAGGED pins `ptA` to the numeric value its params hold
+  when equations are generated, i.e. to the `Param` records in the file.
+  It is the natural way to store *measured* coordinates.
+- `56` LENGTH_DIFFERENCE and `51` LENGTH_RATIO take two **lines**
+  (`entityA`, `entityB`) and set |A| − |B| = `valA` or |A| / |B| = `valA`.
+  With `reference=1` the difference is measured and written back.
+- `52` EQ_LEN_PT_LINE_D: |`entityA`| equals the distance from `ptA` to
+  line `entityB`, squared, so the side is chosen by the initial guess.
+- `32` PT_LINE_DISTANCE in a workplane is signed.
+- `120` ANGLE uses a cosine; its derivative vanishes at 0° and 180°, so
+  use `121` PARALLEL / `122` PERPENDICULAR there.  `other=1` flips one
+  direction.
+- `70` AT_MIDPOINT with a point and a line is two equations in 2D.
+- `1000` COMMENT draws `Constraint.comment` centred at `disp.offset`
+  (plus `ptA` if given).  Exports: DXF `TEXT` with the Unicode intact;
+  SVG/PNG through the built-in vector font, which lacks the GD&T symbols
+  (measured 2026-09: ∠ ∥ ° Ø render, ⌖ ⟂ Ⓜ ◎ ⌓ ↗ do not).
+
 ## 5. The mandatory skeleton of any file
 
 Group `00000001` `#references` (type 5000) with requests 1, 2, 3 (the XY,

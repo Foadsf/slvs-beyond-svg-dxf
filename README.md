@@ -33,6 +33,60 @@ the constraints imply.
 <img src="mwe/06_sketch_to_solid/out/plate.depth20.iso.png" width="30%">
 </p>
 
+## Part II: GD&T principles as verifiable geometry
+
+Geometric dimensioning and tolerancing (ASME Y14.5) is a language of
+datums, basic dimensions and tolerance zones.  SolveSpace has **no
+tolerance semantics**: no feature control frame, datum symbol or material
+condition exists as an object, and a `.slvs` file cannot say "within
+0.2".  What it can do is hold the *geometry* those symbols refer to as
+constraints: the datum reference frame, the true position from basic
+dimensions, the zone boundaries, the MMC bonus rule, the fastener
+formulas, the indicator reading.  Seven examples follow Gene Cogorno's
+*Geometric Dimensioning and Tolerancing for Mechanical Design* (McGraw-Hill,
+2006; ASME Y14.5M-1994) chapter by chapter.  Feature control frames appear
+as ASCII text in COMMENT constraints (`[POS|Ø0.5 (M)|A|B]`), because the
+built-in vector font has no glyphs for ⌖ ⟂ Ⓜ; the DXF export carries
+Unicode comment text verbatim, measured.
+
+| | Book | Shows | One-line change | Verified result |
+|---|---|---|---|---|
+| [11 Datum precedence](mwe/11_gdt_datum_precedence/) | ch. 3–4 | A\|B and B\|A frames on an out-of-square part; simulators as construction lines | draft 0.5° → 1.0° | the same hole reads (40.52, 30.00) in A\|B and (40.26, 30.52) in B\|A |
+| [12 Flatness vs parallelism](mwe/12_gdt_form_flatness/) | ch. 5–6 | measured points (WHERE_DRAGGED); free min-zone vs datum-parallel zone | one point raised | flatness 0.65 < parallelism 0.70, min zone confirmed by brute force |
+| [13 Orientation](mwe/13_gdt_orientation/) | ch. 6 | perpendicularity / angularity / parallelism zones at the basic angle | basic angle 90 → 30 → 0 | error 0.349 = 40·sin 0.5° in all three; PARALLEL needed at 0° |
+| [14 Position at MMC](mwe/14_gdt_position_mmc/) | ch. 7 | true position from basic dims, zone Ø, **bonus as a LENGTH_DIFFERENCE**, virtual-condition gauge | measured Ø10.2 → 10.0 | zone Ø0.7 → Ø0.5; deviation Ø0.36 accepts both; Ø9.5 pin clears |
+| [15 Fasteners](mwe/15_gdt_fasteners/) | ch. 8 | T = H − F and (H − F)/2 built from collinear segments and a midpoint; worst case tangency | H 6.4 → 6.6 | 0.4/0.2 → 0.6/0.3; bolt internally tangent in both |
+| [16 Coaxiality, runout, symmetry](mwe/16_gdt_coaxiality_runout/) | ch. 9–11 | eccentric feature: FIM = 2e as a reference LENGTH_DIFFERENCE; slot median vs centre plane | e 0.05 → 0.12; slot 24.03 → 24.08 | runout 0.10 → 0.24; symmetry zone 0.06 → 0.16 |
+| [17 Profile](mwe/17_gdt_profile/) | ch. 12 | bilateral zone: offset lines and concentric arcs driven by one tolerance segment | 0.5 → 1.0 | boundaries ±0.25 → ±0.5, arcs Ø20.5/19.5 → Ø21/19 |
+
+<p align="center">
+<img src="mwe/11_gdt_datum_precedence/out/plate.png" width="30%">
+<img src="mwe/14_gdt_position_mmc/out/hole.png" width="30%">
+<img src="mwe/17_gdt_profile/out/profile.png" width="30%">
+</p>
+
+### Coverage map
+
+| Cogorno chapter | Covered by | Not representable in `.slvs` |
+|---|---|---|
+| 1–2 Introduction, fundamentals | driving vs reference dimensions in every MWE | units, general tolerances, title-block notes |
+| 3 Symbols, terms, rules | COMMENT text FCFs; Rule 1 discussed in 14 | symbols as objects; Rule 1 (perfect form at MMC) as a check |
+| 4 Datums | 11 (precedence), datums A/B in 14–16 | datum targets, compound datums as objects |
+| 5 Form | 12 (flatness/straightness); circularity by the same construction | free-state variation |
+| 6 Orientation | 13 | tangent-plane modifier |
+| 7 Position, general | 14 (RFS, MMC, bonus, virtual condition, boundary) | LMC bonus (same construction, other sign), zero positional tolerance (set 0.5 → 0) |
+| 8 Position, location | 15 (floating/fixed fasteners), 04 (patterns) | projected zones, composite frames, counterbores |
+| 9 Position, coaxiality | 16 | plug-and-socket stacks |
+| 10 Concentricity, symmetry | 16 | median-point measurement of lobed forms |
+| 11 Runout | 16 (circular) | total runout (needs axial sampling) |
+| 12 Profile | 17 | composite profile, coplanarity, conical profile |
+| 13 Graphic analysis | 14's zone circles are the paper-gauge overlay | datum shift as a solved fit (no inequality constraints) |
+| 14 Tolerancing strategy | 15 | stack-up statistics |
+
+The recurring reason for "not representable" is the same: a solver of
+equalities has no inequalities, so "must lie within" can be *drawn* and
+*measured* but never *enforced*.
+
 ## Capability matrix
 
 | Capability | SVG | DXF | `.slvs` | MWE |
@@ -55,6 +109,13 @@ relations between dimensions are constraints such as `EQUAL_LENGTH_LINES`,
 `LENGTH_RATIO`, `LENGTH_DIFFERENCE`); no units (millimetres are implied); no
 layers beyond styles; text only as TTF outlines; and the solver is numeric,
 so results carry ~1e-8 relative error rather than being exact.
+
+Four constraint types carry most of Part II and deserve to be known by
+name: `200` WHERE_DRAGGED pins a point to the coordinates in the file
+(measured data), `56` LENGTH_DIFFERENCE and `51` LENGTH_RATIO relate two
+lengths (and can be *reference*, so the file reports a difference), `52`
+EQ_LEN_PT_LINE_D makes a point's distance from a line equal to another
+line's length (offsets driven by a segment), and `1000` COMMENT is text.
 
 ## Quick start
 
@@ -107,6 +168,13 @@ Three traps that cost time, recorded so you do not pay for them again:
    exiting 0.
 3. A linked file is read at the **entity** level, so after editing a master
    you must `regenerate` the master before anything that links it.
+4. Equal equation and unknown counts are not enough.  A redundant
+   constraint makes SolveSpace refuse the group; a *degenerate* one (a
+   line meeting a circle at a double root) makes the solver stall at the
+   initial guess with exit code 0.  MWE 17 records one of each.
+5. `thumbnail` draws SolveSpace's "not closed contour" warning into the
+   PNG when the setting is on; close your outlines or make the extra
+   geometry construction.  Comment labels are centred on `disp.offset`.
 
 ## Layout
 
@@ -114,10 +182,11 @@ Three traps that cost time, recorded so you do not pay for them again:
 mwe/NN_name/           one example: hand-written .slvs source(s), a one-line variant,
   README.md            what it shows, the file explained, the diff, verified numbers
   build.json           regenerate order, view, exports
+  check.py             geometry assertions for this example, with a negative control
   out/                 what solvespace-cli produced (svg/png committed; dxf/step/stl/slvs regenerated)
 tools/slvs.py          byte-safe .slvs reader; magic-byte checker/fixer
 tools/build.py         runs the CLI for every example
-tools/check.py         geometry assertions, with negative controls
+tools/check.py         runs every mwe/*/check.py
 tests/                 offline unit tests for the tools
 docs/slvs-primer.md    the format, cited to SolveSpace source lines
 docs/provenance.md     where this came from, and which claims of the seed were wrong

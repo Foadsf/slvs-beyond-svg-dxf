@@ -15,10 +15,14 @@ Contributions are welcome under the same licence as the repository
 3. **A variant that changes one thing.**  Ship a second file that differs
    from the first by one (or two closely related) lines and prove the
    geometry followed.  Say what changed in the README with a `diff`.
-4. **Every claim gets a check.**  Add a `check_NN()` to `tools/check.py`
-   that reads the *regenerated* file in `out/` and compares solved values
-   with values derived from the constraints.  Include a negative control:
-   assert the solved value differs from the initial guess in the source.
+4. **Every claim gets a check.**  Add `mwe/NN_name/check.py` defining
+   `run(ctx)` (see any existing one) that reads the *regenerated* file in
+   `out/` and compares solved values with values derived from the
+   constraints.  Include a negative control: assert the solved value
+   differs from the initial guess in the source.
+   For GD&T examples: cite the Cogorno chapter, put feature control frames
+   in COMMENT text, state pass/fail from the numbers in the README, and
+   keep outlines closed so `thumbnail` draws no warning.
 5. **Source facts, not memory.**  A type number, field name or behaviour is
    cited to a file and line in the SolveSpace source (`src/sketch.h`,
    `src/file.cpp`, `src/group.cpp`, ...) or to a measurement with the CLI.

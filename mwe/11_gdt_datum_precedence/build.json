@@ -1,0 +1,5 @@
+{
+  "order": ["plate.slvs", "plate.skew1.slvs"],
+  "view": "front",
+  "exports": ["svg", "dxf", "png"]
+}

@@ -1,0 +1,5 @@
+{
+  "order": ["profile.slvs", "profile.tol1.slvs"],
+  "view": "front",
+  "exports": ["svg", "dxf", "png"]
+}

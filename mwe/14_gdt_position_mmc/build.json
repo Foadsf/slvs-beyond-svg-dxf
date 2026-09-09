@@ -1,0 +1,5 @@
+{
+  "order": ["hole.slvs", "hole.mmc.slvs"],
+  "view": "front",
+  "exports": ["svg", "dxf", "png"]
+}

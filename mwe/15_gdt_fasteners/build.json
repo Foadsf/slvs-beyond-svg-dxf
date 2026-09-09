@@ -1,0 +1,5 @@
+{
+  "order": ["fastener.slvs", "fastener.h66.slvs"],
+  "view": "front",
+  "exports": ["svg", "dxf", "png"]
+}
