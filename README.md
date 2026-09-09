@@ -109,6 +109,24 @@ scrub the measured poses. GitHub displays its source; download the repository
 and open the file in a browser. See the [example README](mwe/18_peaucellier/README.md)
 for the proof, reproduction commands and numerical evidence.
 
+## Part IV: Model-based definition and PMI
+
+[19 MBD and PMI](mwe/19_mbd_pmi/): one `.slvs` file is the released
+definition of a plate. It holds the driving dimensions, 3D dimensions and
+notes anchored to model points, datum labels, a feature control frame,
+material, finish and revision. The CLI derives four views, DXF, STEP and
+STL from it, and `tools/pmi.py` reads the PMI back out as JSON. Change
+the thickness in one line: every view, the solid, the anchored hole
+callout and the PMI report follow, and the check proves the 3D reference
+PMI can never disagree with the model. Measured limit: the STEP export is
+AP203 geometry with zero PMI entities; semantic PMI in AP242 is outside
+SolveSpace.
+
+<p align="center">
+<img src="mwe/19_mbd_pmi/out/plate.iso.png" width="45%">
+<img src="mwe/19_mbd_pmi/out/plate.t12.iso.png" width="45%">
+</p>
+
 ## Capability matrix
 
 | Capability | SVG | DXF | `.slvs` | MWE |
@@ -207,8 +225,9 @@ mwe/NN_name/           one example: hand-written .slvs source(s), a one-line var
   check.py             geometry assertions for this example, with a negative control
   out/                 what solvespace-cli produced (svg/png committed; dxf/step/stl/slvs regenerated)
 tools/slvs.py          byte-safe .slvs reader; magic-byte checker/fixer
-tools/build.py         runs the CLI for every example
+tools/build.py         runs the CLI for every example (extra "views" and "pmi" per build.json)
 tools/check.py         runs every mwe/*/check.py
+tools/pmi.py           extracts dimensions, notes and datums from a regenerated .slvs as JSON
 tests/                 offline unit tests for the tools
 docs/slvs-primer.md    the format, cited to SolveSpace source lines
 docs/provenance.md     where this came from, and which claims of the seed were wrong

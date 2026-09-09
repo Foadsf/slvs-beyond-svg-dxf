@@ -13,7 +13,9 @@ Each MWE directory contains a ``build.json``::
       "order":   ["skeleton.slvs", "bracket.slvs"],   # regenerate in this order
       "view":    "front",                              # export-view / thumbnail direction
       "exports": ["svg", "dxf", "png"],                # 2D exports for every file
-      "solid":   ["bracket.slvs"]                      # also export-surfaces (STEP) + export-mesh (STL)
+      "solid":   ["bracket.slvs"],                     # also export-surfaces (STEP) + export-mesh (STL)
+      "views":   ["top", "right"],                     # extra derived views, <stem>.<view>.svg/png
+      "pmi":     true                                  # extract annotations to <stem>.pmi.json
     }
 
 Outputs go to ``<mwe>/out/``.  Sources are never modified: they are copied
@@ -94,7 +96,9 @@ def build_one(cli: Path, mwe: Path, verbose: bool) -> list[Path]:
     for name in spec["order"]:
         dst = out / name
         for ext in GENERATED_SUFFIXES:
-            for victim in (dst.with_suffix(ext), dst.parent / (dst.stem + ".iso" + ext)):
+            victims = [dst.with_suffix(ext), dst.parent / (dst.stem + ".iso" + ext)]
+            victims += [dst.parent / (dst.stem + f".{v}" + ext) for v in spec.get("views", [])]
+            for victim in victims:
                 if victim.exists():
                     victim.unlink()
 
@@ -137,6 +141,26 @@ def build_one(cli: Path, mwe: Path, verbose: bool) -> list[Path]:
                 "--output", "%.iso.png", str(dst), verbose=verbose)
             expect_file(iso_png)
             produced += [dst.with_suffix(".step"), dst.with_suffix(".stl"), iso_svg, iso_png]
+
+        # Extra derived views: "views": ["top", "right"] -> <stem>.top.svg/.png ...
+        for v in spec.get("views", []):
+            vsvg = dst.parent / (dst.stem + f".{v}.svg")
+            run(cli, "export-view", "--view", v, "--bg-color", "off",
+                "--output", f"%.{v}.svg", str(dst), verbose=verbose)
+            expect_file(vsvg)
+            vpng = dst.parent / (dst.stem + f".{v}.png")
+            run(cli, "thumbnail", "--view", v, "--size", "800x600",
+                "--output", f"%.{v}.png", str(dst), verbose=verbose)
+            expect_file(vpng)
+            produced += [vsvg, vpng]
+
+        # "pmi": true -> extract annotations into <stem>.pmi.json (see tools/pmi.py)
+        if spec.get("pmi"):
+            import pmi  # noqa: WPS433 - local tool, imported lazily
+            pj = dst.parent / (dst.stem + ".pmi.json")
+            pj.write_text(json.dumps(pmi.extract(dst), indent=2, ensure_ascii=False) + "\n",
+                          encoding="utf-8")
+            produced.append(pj)
     return produced
 
 

@@ -1,0 +1,8 @@
+{
+  "order": ["plate.slvs", "plate.t12.slvs"],
+  "view": "front",
+  "exports": ["svg", "dxf", "png"],
+  "solid": ["plate.slvs", "plate.t12.slvs"],
+  "views": ["top", "right"],
+  "pmi": true
+}

@@ -1,0 +1,358 @@
+{
+  "source": "plate.slvs",
+  "units": "mm (SolveSpace stores lengths in millimetres; the file carries no unit field)",
+  "groups": [
+    {
+      "handle": "00000001",
+      "name": "#references",
+      "type": "DRAWING_3D"
+    },
+    {
+      "handle": "00000002",
+      "name": "plate-profile",
+      "type": "DRAWING_WORKPLANE"
+    },
+    {
+      "handle": "00000003",
+      "name": "plate-body",
+      "type": "EXTRUDE"
+    }
+  ],
+  "dimensions": [
+    {
+      "handle": "0000000a",
+      "type": "PT_PT_DISTANCE",
+      "value": 60.0,
+      "reference": false,
+      "group": "00000002",
+      "in_3d": false,
+      "attached_to": {
+        "ptA": "00040001",
+        "ptB": "00040002"
+      },
+      "point_xyz": {
+        "ptA": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "ptB": [
+          60.0,
+          -0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "handle": "0000000b",
+      "type": "PT_PT_DISTANCE",
+      "value": 40.0,
+      "reference": false,
+      "group": "00000002",
+      "in_3d": false,
+      "attached_to": {
+        "ptA": "00070001",
+        "ptB": "00070002"
+      },
+      "point_xyz": {
+        "ptA": [
+          -0.0,
+          40.0,
+          0.0
+        ],
+        "ptB": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "handle": "0000000c",
+      "type": "PT_LINE_DISTANCE",
+      "value": -20.0,
+      "reference": false,
+      "group": "00000002",
+      "in_3d": false,
+      "attached_to": {
+        "ptA": "00080001",
+        "entityA": "00040000"
+      },
+      "point_xyz": {
+        "ptA": [
+          20.0,
+          20.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "handle": "0000000d",
+      "type": "PT_LINE_DISTANCE",
+      "value": -20.0,
+      "reference": false,
+      "group": "00000002",
+      "in_3d": false,
+      "attached_to": {
+        "ptA": "00080001",
+        "entityA": "00070000"
+      },
+      "point_xyz": {
+        "ptA": [
+          20.0,
+          20.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "handle": "0000000e",
+      "type": "DIAMETER",
+      "value": 10.0,
+      "reference": false,
+      "group": "00000002",
+      "in_3d": false,
+      "attached_to": {
+        "entityA": "00080000"
+      },
+      "point_xyz": {}
+    },
+    {
+      "handle": "0000000f",
+      "type": "PT_PT_DISTANCE",
+      "value": 8.0,
+      "reference": false,
+      "group": "00000003",
+      "in_3d": true,
+      "attached_to": {
+        "ptA": "00040001",
+        "ptB": "80030005"
+      },
+      "point_xyz": {
+        "ptA": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "ptB": [
+          0.0,
+          0.0,
+          8.0
+        ]
+      }
+    },
+    {
+      "handle": "00000010",
+      "type": "PT_PT_DISTANCE",
+      "value": 72.55342858886821,
+      "reference": true,
+      "group": "00000003",
+      "in_3d": true,
+      "attached_to": {
+        "ptA": "00040001",
+        "ptB": "8003000f"
+      },
+      "point_xyz": {
+        "ptA": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "ptB": [
+          60.0,
+          40.0,
+          8.0
+        ]
+      }
+    },
+    {
+      "handle": "00000019",
+      "type": "PT_PT_DISTANCE",
+      "value": 60.0,
+      "reference": true,
+      "group": "00000003",
+      "in_3d": true,
+      "attached_to": {
+        "ptA": "80030005",
+        "ptB": "80030006"
+      },
+      "point_xyz": {
+        "ptA": [
+          0.0,
+          0.0,
+          8.0
+        ],
+        "ptB": [
+          60.0,
+          -0.0,
+          8.0
+        ]
+      }
+    },
+    {
+      "handle": "0000001a",
+      "type": "PT_PT_DISTANCE",
+      "value": 40.0,
+      "reference": true,
+      "group": "00000003",
+      "in_3d": true,
+      "attached_to": {
+        "ptA": "80030006",
+        "ptB": "8003000f"
+      },
+      "point_xyz": {
+        "ptA": [
+          60.0,
+          -0.0,
+          8.0
+        ],
+        "ptB": [
+          60.0,
+          40.0,
+          8.0
+        ]
+      }
+    },
+    {
+      "handle": "0000001b",
+      "type": "DIAMETER",
+      "value": 10.0,
+      "reference": true,
+      "group": "00000003",
+      "in_3d": true,
+      "attached_to": {
+        "entityA": "80030029"
+      },
+      "point_xyz": {}
+    },
+    {
+      "handle": "0000001c",
+      "type": "PT_LINE_DISTANCE",
+      "value": 20.0,
+      "reference": true,
+      "group": "00000003",
+      "in_3d": true,
+      "attached_to": {
+        "ptA": "8003002a",
+        "entityA": "8003001f"
+      },
+      "point_xyz": {
+        "ptA": [
+          20.0,
+          20.0,
+          8.0
+        ]
+      }
+    },
+    {
+      "handle": "0000001d",
+      "type": "PT_LINE_DISTANCE",
+      "value": 20.0,
+      "reference": true,
+      "group": "00000003",
+      "in_3d": true,
+      "attached_to": {
+        "ptA": "8003002a",
+        "entityA": "80030004"
+      },
+      "point_xyz": {
+        "ptA": [
+          20.0,
+          20.0,
+          8.0
+        ]
+      }
+    }
+  ],
+  "notes": [
+    {
+      "handle": "00000014",
+      "text": "Ø10 H7 THRU",
+      "group": "00000003",
+      "in_3d": true,
+      "anchor": "8003002a",
+      "anchor_xyz": [
+        20.0,
+        20.0,
+        8.0
+      ]
+    },
+    {
+      "handle": "00000015",
+      "text": "[POS|Ø0.2 (M)|A|B|C]",
+      "group": "00000003",
+      "in_3d": true,
+      "anchor": "8003002a",
+      "anchor_xyz": [
+        20.0,
+        20.0,
+        8.0
+      ]
+    },
+    {
+      "handle": "00000016",
+      "text": "PART SLVS-MBD-019  REV B  UNITS mm  THIS MODEL IS THE DEFINITION",
+      "group": "00000003",
+      "in_3d": true,
+      "anchor": null,
+      "anchor_xyz": null
+    },
+    {
+      "handle": "00000017",
+      "text": "MATERIAL AL 6082-T6   Ra 3.2 ALL OVER   BREAK EDGES 0.5 MAX",
+      "group": "00000003",
+      "in_3d": true,
+      "anchor": null,
+      "anchor_xyz": null
+    },
+    {
+      "handle": "00000018",
+      "text": "[FLAT|0.05] on DATUM A",
+      "group": "00000003",
+      "in_3d": true,
+      "anchor": null,
+      "anchor_xyz": null
+    }
+  ],
+  "datums": [
+    {
+      "handle": "00000011",
+      "text": "DATUM A (bottom face)",
+      "group": "00000003",
+      "in_3d": true,
+      "anchor": "00040002",
+      "anchor_xyz": [
+        60.0,
+        -0.0,
+        0.0
+      ],
+      "datum": "A"
+    },
+    {
+      "handle": "00000012",
+      "text": "DATUM B (left face)",
+      "group": "00000003",
+      "in_3d": true,
+      "anchor": "00060002",
+      "anchor_xyz": [
+        -0.0,
+        40.0,
+        0.0
+      ],
+      "datum": "B"
+    },
+    {
+      "handle": "00000013",
+      "text": "DATUM C (front face)",
+      "group": "00000003",
+      "in_3d": true,
+      "anchor": "00040001",
+      "anchor_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "datum": "C"
+    }
+  ]
+}
