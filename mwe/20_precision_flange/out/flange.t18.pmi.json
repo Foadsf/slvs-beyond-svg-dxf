@@ -1,0 +1,228 @@
+{
+  "source": "flange.t18.slvs",
+  "units": "mm (SolveSpace stores lengths in millimetres; the file carries no unit field)",
+  "groups": [
+    {
+      "handle": "00000001",
+      "name": "#references",
+      "type": "DRAWING_3D"
+    },
+    {
+      "handle": "00000002",
+      "name": "flange-outline-and-bores",
+      "type": "DRAWING_WORKPLANE"
+    },
+    {
+      "handle": "00000003",
+      "name": "mounting-flange",
+      "type": "EXTRUDE"
+    },
+    {
+      "handle": "00000004",
+      "name": "boss-profile-on-flange",
+      "type": "DRAWING_WORKPLANE"
+    },
+    {
+      "handle": "00000005",
+      "name": "integral-pilot-boss",
+      "type": "EXTRUDE"
+    }
+  ],
+  "dimensions": [
+    {
+      "handle": "00000012",
+      "type": "DIAMETER",
+      "value": 24.0,
+      "reference": false,
+      "group": "00000002",
+      "in_3d": false,
+      "attached_to": {
+        "entityA": "001e0000"
+      },
+      "point_xyz": {}
+    },
+    {
+      "handle": "00000014",
+      "type": "DIAMETER",
+      "value": 8.4,
+      "reference": false,
+      "group": "00000002",
+      "in_3d": false,
+      "attached_to": {
+        "entityA": "001f0000"
+      },
+      "point_xyz": {}
+    },
+    {
+      "handle": "0000001b",
+      "type": "PT_PT_DISTANCE",
+      "value": 18.0,
+      "reference": false,
+      "group": "00000003",
+      "in_3d": true,
+      "attached_to": {
+        "ptA": "000a0001",
+        "ptB": "80030005"
+      },
+      "point_xyz": {
+        "ptA": [
+          10.0,
+          0.0,
+          0.0
+        ],
+        "ptB": [
+          10.0,
+          0.0,
+          18.0
+        ]
+      }
+    },
+    {
+      "handle": "0000001e",
+      "type": "DIAMETER",
+      "value": 40.0,
+      "reference": false,
+      "group": "00000004",
+      "in_3d": false,
+      "attached_to": {
+        "entityA": "00280000"
+      },
+      "point_xyz": {}
+    },
+    {
+      "handle": "00000020",
+      "type": "PT_PT_DISTANCE",
+      "value": 8.0,
+      "reference": false,
+      "group": "00000005",
+      "in_3d": true,
+      "attached_to": {
+        "ptA": "00280001",
+        "ptB": "80050006"
+      },
+      "point_xyz": {
+        "ptA": [
+          50.0,
+          40.0,
+          18.0
+        ],
+        "ptB": [
+          50.0,
+          40.0,
+          26.0
+        ]
+      }
+    }
+  ],
+  "notes": [
+    {
+      "handle": "00000024",
+      "text": "4X DIA 8.40-8.60 THRU; [POS|DIA 0.20 (M)|A|B|C]",
+      "group": "00000005",
+      "in_3d": true,
+      "anchor": "80030060",
+      "anchor_xyz": [
+        82.0,
+        18.0,
+        18.0
+      ]
+    },
+    {
+      "handle": "00000025",
+      "text": "PILOT DIA 24.00-24.02 THRU; [POS|DIA 0.05|A|B|C]",
+      "group": "00000005",
+      "in_3d": true,
+      "anchor": "80050006",
+      "anchor_xyz": [
+        50.0,
+        40.0,
+        26.0
+      ]
+    },
+    {
+      "handle": "00000026",
+      "text": "BOSS TOP [PARALLEL|0.05|A]; DIA 40 +/-0.10",
+      "group": "00000005",
+      "in_3d": true,
+      "anchor": "80050006",
+      "anchor_xyz": [
+        50.0,
+        40.0,
+        26.0
+      ]
+    },
+    {
+      "handle": "00000027",
+      "text": "BASIC XY: (18,18) (82,18) (82,62) (18,62); PILOT (50,40)",
+      "group": "00000005",
+      "in_3d": true,
+      "anchor": null,
+      "anchor_xyz": null
+    },
+    {
+      "handle": "00000028",
+      "text": "PF-020 / REV A / mm / EDUCATIONAL DEFINITION",
+      "group": "00000005",
+      "in_3d": true,
+      "anchor": null,
+      "anchor_xyz": null
+    },
+    {
+      "handle": "00000029",
+      "text": "MATERIAL 6061-T6 ALUMINIUM; UNCOATED; DEBURR 0.2 MAX",
+      "group": "00000005",
+      "in_3d": true,
+      "anchor": null,
+      "anchor_xyz": null
+    },
+    {
+      "handle": "0000002a",
+      "text": "MACHINED Ra 3.2 um; A AND PILOT Ra 1.6 um; LINEAR +/-0.10",
+      "group": "00000005",
+      "in_3d": true,
+      "anchor": null,
+      "anchor_xyz": null
+    }
+  ],
+  "datums": [
+    {
+      "handle": "00000021",
+      "text": "DATUM A : mounting face Z=0; [FLAT|0.05]",
+      "group": "00000005",
+      "in_3d": true,
+      "anchor": "000a0001",
+      "anchor_xyz": [
+        10.0,
+        0.0,
+        0.0
+      ],
+      "datum": "A"
+    },
+    {
+      "handle": "00000022",
+      "text": "DATUM B : side Y=0; [PERP|0.05|A]",
+      "group": "00000005",
+      "in_3d": true,
+      "anchor": "000a0002",
+      "anchor_xyz": [
+        90.0,
+        0.0,
+        0.0
+      ],
+      "datum": "B"
+    },
+    {
+      "handle": "00000023",
+      "text": "DATUM C : side X=0; [PERP|0.05|A|B]",
+      "group": "00000005",
+      "in_3d": true,
+      "anchor": "00110001",
+      "anchor_xyz": [
+        0.0,
+        10.0,
+        0.0
+      ],
+      "datum": "C"
+    }
+  ]
+}

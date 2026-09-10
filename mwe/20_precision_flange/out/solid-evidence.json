@@ -1,0 +1,34 @@
+[
+  {
+    "model": "flange",
+    "step_sha256": "5b32dadd3c20b18e883a786fcd4ff9dac0f7b19ef2f7d60944bf026da81ba16d",
+    "step_valid": true,
+    "solids": 1,
+    "expected_volume_mm3": 91945.2603175012,
+    "step_volume_mm3": 91945.26029169283,
+    "bore_boundary_probes": 240,
+    "stl_watertight": true,
+    "stl_euler": -8,
+    "stl_volume_mm3": 92034.12983426852,
+    "controls": [
+      "solid web is not a hole",
+      "missing triangle is not watertight"
+    ]
+  },
+  {
+    "model": "flange.t18",
+    "step_sha256": "cc02428e6c51556ef6216c057844c2cb9a9ce5658fd530cd70d8fbf43367f6db",
+    "step_valid": true,
+    "solids": 1,
+    "expected_volume_mm3": 134700.89959897584,
+    "step_volume_mm3": 134700.89951008905,
+    "bore_boundary_probes": 240,
+    "stl_watertight": true,
+    "stl_euler": -8,
+    "stl_volume_mm3": 134841.36522503066,
+    "controls": [
+      "solid web is not a hole",
+      "missing triangle is not watertight"
+    ]
+  }
+]

@@ -127,6 +127,21 @@ SolveSpace.
 <img src="mwe/19_mbd_pmi/out/plate.t12.iso.png" width="45%">
 </p>
 
+### An interactive definition package
+
+[20 Precision, defined](mwe/20_precision_flange/) brings GD&T, MBD and PMI
+together on a locating flange with five bores and an integral raised boss.
+Orbit the native mesh, inspect A–B–C datums and basic locations, switch a
+one-line thickness variant, and test MMC bonus and axis tilt at a virtual
+inspection bench. Both variants reopen as one valid STEP solid; independent
+bore probes, watertightness checks and deliberately failing controls verify
+the geometry and the inspection logic.
+
+[![Precision flange interactive review](mwe/20_precision_flange/out/preview.png)](mwe/20_precision_flange/out/review.html)
+
+Open the HTML locally after downloading the repository. It is an educational
+model with associated PMI; SolveSpace's STEP remains geometry-only AP203.
+
 ## Capability matrix
 
 | Capability | SVG | DXF | `.slvs` | MWE |

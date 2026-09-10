@@ -1,0 +1,33 @@
+{
+  "javascript_errors": [],
+  "mmc": {
+    "d": 8.4,
+    "x": 0.12,
+    "tilt": 0,
+    "allowed": 0.2,
+    "actual": 0.2683281572999748,
+    "gap": -0.034164078649987745,
+    "ok": false
+  },
+  "bonus": {
+    "d": 8.5,
+    "x": 0.12,
+    "tilt": 0,
+    "allowed": 0.29999999999999966,
+    "actual": 0.2683281572999748,
+    "gap": 0.015835921350012078,
+    "ok": true
+  },
+  "tilted": {
+    "d": 8.5,
+    "x": 0.12,
+    "tilt": 0.06,
+    "allowed": 0.29999999999999966,
+    "actual": 0.37947331922020555,
+    "gap": -0.03973665961010331,
+    "ok": false
+  },
+  "variant_link": true,
+  "orbit_changes_pixels": true,
+  "mobile_overflow": false
+}

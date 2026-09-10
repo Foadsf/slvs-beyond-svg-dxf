@@ -1,0 +1,76 @@
+[
+  {
+    "case": "bonus pass",
+    "expected": true,
+    "measurement": {
+      "accepted": true,
+      "position": 0.2683281572999748,
+      "allowed": 0.29999999999999893,
+      "gap": 0.015835921350012078,
+      "size_ok": true
+    }
+  },
+  {
+    "case": "MMC fail",
+    "expected": false,
+    "measurement": {
+      "accepted": false,
+      "position": 0.2683281572999748,
+      "allowed": 0.1999999999999993,
+      "gap": -0.034164078649987745,
+      "size_ok": true
+    }
+  },
+  {
+    "case": "tilted exit fail",
+    "expected": false,
+    "measurement": {
+      "accepted": false,
+      "position": 0.3794733192202055,
+      "allowed": 0.29999999999999893,
+      "gap": -0.03973665961010328,
+      "size_ok": true
+    }
+  },
+  {
+    "case": "undersize centered fail",
+    "expected": false,
+    "measurement": {
+      "accepted": false,
+      "position": 0.0,
+      "allowed": 0.1899999999999995,
+      "gap": 0.09499999999999975,
+      "size_ok": false
+    }
+  },
+  {
+    "case": "oversize centered fail",
+    "expected": false,
+    "measurement": {
+      "accepted": false,
+      "position": 0.0,
+      "allowed": 0.40999999999999837,
+      "gap": 0.20499999999999918,
+      "size_ok": false
+    }
+  },
+  {
+    "case": "boundary pass",
+    "expected": true,
+    "measurement": {
+      "accepted": true,
+      "position": 0.2,
+      "allowed": 0.1999999999999993,
+      "gap": -3.608224830031759e-16,
+      "size_ok": true
+    }
+  },
+  {
+    "case": "nonfinite fail",
+    "expected": false,
+    "measurement": {
+      "accepted": false,
+      "reason": "nonfinite"
+    }
+  }
+]

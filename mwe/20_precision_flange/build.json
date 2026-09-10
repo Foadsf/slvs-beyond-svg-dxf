@@ -1,0 +1,8 @@
+{
+  "order": ["flange.slvs", "flange.t18.slvs"],
+  "view": "front",
+  "exports": ["svg", "dxf", "png"],
+  "solid": ["flange.slvs", "flange.t18.slvs"],
+  "views": ["right"],
+  "pmi": true
+}
